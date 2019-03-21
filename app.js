@@ -7,9 +7,11 @@ const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
-const dotenv - require('dotenv');
+const dotenv = require('dotenv');
 dotenv.config();
 const app = express();
+
+const db = require("./helpers/db")();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
