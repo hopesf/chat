@@ -1,0 +1,13 @@
+{
+  "name": "nodechat",
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "keywords": [
+    "chat"
+  ],
+  "homepage": "https://github.com/hopesf/chat",
+  "dependencies": {
+    "angular": "^1.7.8"
+  }
+}
