@@ -1,5 +1,17 @@
 extends layout
 
+append stylesheets
+  link(rel='stylesheet', href='/stylesheets/style.css')
+  link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.0/css/all.min.css')
+
 block content
-  h1= title
-  p Welcome to #{title}
+  div(ng-controller="indexController")
+    .modal
+      .modal__inner
+        .modal__header
+          h2 Hosgeldin, Lutfen giris yap.
+        .modal__footer
+          a(href='#')
+            i.fab.fa-google-plus-g(aria-hidden='true')
+            |  Google+ ile giris
+
