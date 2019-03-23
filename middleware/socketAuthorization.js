@@ -14,7 +14,8 @@ function onAuthorizeFail(data, message, error, accept){
     accept(null, false);
 }
 
-
+//dedigim gibi, bu arkadas alt kisimda redisle socketio yu birlestiriyoku,
+// redisdeki sessiondan gelen)kullanici bilgilerini, socketio ya cekebilmek icin gerekli
 
 module.exports = passPortSocketIo.authorize({
     cookieParser,
