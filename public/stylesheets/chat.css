@@ -102,14 +102,39 @@ ul,li{
     background-position: top 12px left 14px;
     border-radius: 50%;
 }
-.container .left .people {
+
+.tabArea{
     margin-left: -1px;
     border-right: 1px solid var(--light);
     border-left: 1px solid var(--light);
     width: calc(100% + 2px);
     height: calc(76% + 1px);
-    overflow:scroll;
+    overflow:hidden;
 }
+
+.tabArea:hover{
+    overflow:scroll;
+    overflow-x: hidden;
+}
+
+.tabArea::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+}
+
+.tabArea::-webkit-scrollbar
+{
+    width: 5px;
+    background-color: #ff3333;
+}
+
+.tabArea::-webkit-scrollbar-thumb
+{
+    background-color: #999;
+}
+
+
 .container .left .people .person {
     position: relative;
     width: 100%;
@@ -399,6 +424,7 @@ ul,li{
 .tab li{
     width: 50%;
     float: left;
+    cursor:pointer;
 }
 .tab li a{
     height:40px;
