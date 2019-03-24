@@ -7,18 +7,33 @@ const socketApi = {
 };
 
 //libs (online kullanicinin redisdeki verisi)
-const Users = require('./lib/Users');
 
+const Users = require('./lib/Users');
 //socket authorization (redisdeki session verisini socket io ya baglayabilmeye yariyor)
 io.use(socketAuthorization);
 
+const redisAdapter = require('socket.io-redis');
+io.adapter(redisAdapter({
+    host: process.env.REDIS_URI,
+    port: process.env.REDIS_PORT
+}));
+
+
 io.on('connection', socket =>{
-   console.log('Hos geldin '+ socket.request.user.name);
     Users.upsert(socket.id, socket.request.user);
 
-    socket.on('disconnect', socket =>{
-        console.log('bir kullanici ayrildi');
+    Users.list(users =>{
+       console.log(users);
     });
+
+    socket.on('disconnect', () => {
+        Users.remove(socket.request.user._id);
+
+        Users.list(users =>{
+            console.log(users);
+        });
+    });
+
 });
 
 
