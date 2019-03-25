@@ -1,4 +1,14 @@
-app.controller('ChatController', ['$scope',($scope) =>{
+app.controller('ChatController', ['$scope', 'userFactory', 'chatFactory',($scope, userFactory, chatFactory) =>{
+
+    function init(){
+        userFactory.getUser().then(user => {
+            $scope.user = user;
+        })
+    }
+
+    init();
+
+
     $scope.onLineList = [];
     $scope.roomList = [];
     $scope.activeTab = 1;
@@ -6,6 +16,9 @@ app.controller('ChatController', ['$scope',($scope) =>{
     $scope.chatName = '';
     $scope.roomId = '';
     $scope.message = "";
+    $scope.messages = [];
+
+    $scope.user = {};
 
     const socket = io.connect("http://localhost:3000");
     socket.on('onlineList', users => {
@@ -30,6 +43,11 @@ app.controller('ChatController', ['$scope',($scope) =>{
         $scope.chatName = room.name;
         $scope.roomId = room.id;
         $scope.chatClicked = true;
+
+        chatFactory.getMessages(room.id).then(data => {
+            $scope.messages[room.id] = data;
+            console.log($scope.messages);
+        })
     };
 
     $scope.newRoom = () => {
