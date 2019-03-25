@@ -10,6 +10,7 @@ const socketApi = {
 
 const Users = require('./lib/Users');
 const Rooms = require('./lib/Rooms');
+const Messages = require('./lib/Messages');
 //socket authorization (redisdeki session verisini socket io ya baglayabilmeye yariyor)
 io.use(socketAuthorization);
 
@@ -29,6 +30,14 @@ io.on('connection', socket =>{
 
     Users.list(users =>{
        io.emit('onlineList', users);
+    });
+
+    socket.on('newMessage', data => {
+        const birlestir = socket.request.user.name+" "+socket.request.user.surname;
+       Messages.upsert({
+           ...data,
+           username:birlestir,
+       });
     });
 
     socket.on('newRoom', roomName => {

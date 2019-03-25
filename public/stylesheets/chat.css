@@ -417,6 +417,10 @@ ul,li{
     right: 0;
 }
 
+.send{
+    cursor: pointer;
+}
+
 .tab{
 
 }
