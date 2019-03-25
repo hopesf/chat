@@ -4,7 +4,7 @@ append stylesheets
   link(rel='stylesheet', href='/stylesheets/chat.css')
 
 block content
-  div(ng-controller="ChatController")
+  div(ng-controller="ChatController" ng-cloak)
     .wrapper
       .container
         .left
@@ -54,9 +54,9 @@ block content
                   span.preview howdoyoudoaspace
             .tab-right(ng-show="activeTab === 2")
               ul.people
-                li.person
-                  img
-                  span.name selim gecin
+                li.person(ng-repeat= 'user in onlineList')
+                  img(src="{{ user.meta.profilePhotoUrl }}")
+                  span.name {{ user.meta.name }}  {{ user.meta.surname }}
                   span.preview &nbsp;
           .bottom
             button New Group
