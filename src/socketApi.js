@@ -9,6 +9,7 @@ const socketApi = {
 //libs (online kullanicinin redisdeki verisi)
 
 const Users = require('./lib/Users');
+const Rooms = require('./lib/Rooms');
 //socket authorization (redisdeki session verisini socket io ya baglayabilmeye yariyor)
 io.use(socketAuthorization);
 
@@ -22,8 +23,19 @@ io.adapter(redisAdapter({
 io.on('connection', socket =>{
     Users.upsert(socket.id, socket.request.user);
 
+    Rooms.list(rooms =>{
+        io.emit('roomList', rooms)
+    });
+
     Users.list(users =>{
        io.emit('onlineList', users);
+    });
+
+    socket.on('newRoom', roomName => {
+        Rooms.upsert(roomName);
+        Rooms.list(rooms =>{
+            io.emit('roomList', rooms)
+        });
     });
 
     socket.on('disconnect', () => {
