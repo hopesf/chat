@@ -8,8 +8,8 @@ app.factory('userFactory', ['$http', 'env', ($http, env) => {
         }, (err) => {
             console.error(err);
         })
-    };
 
+    };
     return {
         getUser
     }
